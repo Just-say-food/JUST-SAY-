@@ -1,0 +1,31 @@
+JUST SAY V4 FEATURE STATUS
+
+Included as a front-end demo:
+[✓] Public hotel directory and hotel profile pages
+[✓] Room search UI, nightly prices and demo availability counts
+[✓] Booking request leads and estimated totals
+[✓] Food menus, cart and order request flow
+[✓] Rule-based AI-helpdesk-style UI
+[✓] Central + hotel email draft links
+[✓] Hotel WhatsApp handoff
+[✓] UPI ID, QR and intent link UI
+[✓] Cash-at-hotel selection (hotel approval required)
+[✓] Hotel menu/price editing and room-price editing
+[✓] Hotel listing QR preview
+[✓] Reviews, policy, about, food types, restaurant names
+[✓] Version 3 Super Admin login/verification demo retained
+
+Requires backend/provider integration for production:
+[ ] Actual secure Super Admin and hotel authentication / MFA
+[ ] Shared database and cross-device live updates
+[ ] Real-time date-wise room inventory / confirmed reservations
+[ ] Automated transactional email delivery
+[ ] WhatsApp Business API delivery
+[ ] Real AI model integration and authenticated booking lookup
+[ ] Payment-provider verification/webhooks
+[ ] Credits wallet/ledger and automatic credit updates
+[ ] Photo upload/storage and audit logs
+
+[✓ prototype UI added] Admin can select hotel gallery and room gallery photos; public hotel pages render uploaded gallery images and allow tap-to-zoom.
+[✓ prototype UI added] Menu rows include food photo file selection and public menu cards render food photos.
+[!] Prototype limitation: images are stored as data URLs in this browser's localStorage-backed hotel record. Large photos may exceed browser storage, and this does NOT sync to customers on other devices. Production deployment must use Supabase Storage + shared database tables and access policies before relying on these photos or bookings.

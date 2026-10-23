@@ -1,0 +1,11 @@
+JUST SAY — Supabase migration notes
+
+This file intentionally does not create/drop/alter tables automatically because the existing project already has tables and a profiles_role_check constraint. Inspect the current table definitions first.
+
+Before connecting data operations:
+- Confirm columns and types in hotels, menu_items, orders, profiles, reviews.
+- Enable RLS on every table containing private or tenant-scoped data.
+- Create/test policies so hotel owners can access only records for their assigned hotel.
+- Assign Super Admin role through a trusted admin-only process; never let users set their own role.
+- Use Supabase Auth users, not passwords stored in public.profiles or localStorage.
+- Keep secret/service-role keys on a trusted server/Edge Function only.

@@ -1,0 +1,22 @@
+JUST SAY V5 PROFESSIONAL UPGRADE — STATUS
+
+[UI ADDED] Customer account signup/sign-in forms with email/mobile fields. Real Supabase Auth verification is NOT connected.
+[UI ADDED] Hotel partner registration with PAN, conditional FSSAI and Fire Safety NOC file pickers.
+[UI ADDED] Introductory membership price ₹499 / standard ₹999 display. No payment is collected or verified.
+[UI ADDED] Super Admin local demo settings for city focus and payment receiving preferences. Full bank account number is not persisted by this demo.
+[UI ADDED] Partner application queue with demo approve/reject controls.
+[UI ADDED] Hotel room inventory and daily guest/booking register with CSV export and print-to-PDF receipt/register.
+[UI ADDED] Receipt print preview and public city filter / quick links for Kanpur and Lucknow.
+[UI ADDED] Production roadmap and security requirements.
+
+NOT YET IMPLEMENTED (requires backend/provider setup)
+- Real secure customer/hotel/admin authentication, email verification and mobile OTP.
+- Shared database records across devices; current prototype records use localStorage.
+- Private document upload to Supabase Storage; current file inputs only retain file metadata in the browser session and do not upload files.
+- Actual partner approval/publishing against the public shared database.
+- Online payment checkout and server-side payment webhooks.
+- Automatic receipt email and WhatsApp delivery.
+- Real-time room inventory, booking locks, customer booking history and hotel-scoped RLS.
+- Verified hotel profile updates and gallery image sync across devices.
+
+IMPORTANT: Do not use this ZIP as a production booking/payment system until the backend steps in PRODUCTION_ROADMAP.md are completed and tested.

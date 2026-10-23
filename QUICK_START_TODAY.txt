@@ -1,0 +1,22 @@
+JUST SAY V5 — QUICK START
+
+What this update does:
+- Uses your EXISTING Supabase Auth account to sign in to admin.html.
+- Checks public.profiles.role = 'super_admin'.
+- Saves hotel basics to public.hotels and menu items to public.menu_items.
+- Requires Supabase RLS policies; see SUPABASE_ADMIN_POLICIES.sql.
+
+Before uploading:
+1. Open supabase-config.js and paste your sb_publishable_... key in publishableKey.
+   Do not use sb_secret_ or service_role.
+2. In Supabase SQL Editor, run SUPABASE_ADMIN_POLICIES.sql.
+3. Upload the updated files to the ROOT of your GitHub repository and commit.
+4. Open https://just-say-food.github.io/Just-say/admin.html and hard refresh (Ctrl+Shift+R).
+5. Sign in using your existing Supabase Auth email + password.
+6. Test by creating one test hotel and checking public.hotels and public.menu_items in Supabase.
+
+IMPORTANT LIMITATIONS:
+- The owner username/password fields are NOT used to create a real hotel-owner auth account. Do not give the hotel owner these demo credentials.
+- This bridge saves core hotel fields and menu items only. Extra fields such as photos, room types, policy text, UPI, guest registers, and gallery uploads are not yet persisted to shared database/storage.
+- Public customer pages and orders/reviews still have prototype/local-storage behavior. Do not claim all V5 features are production-ready.
+- The SQL policies grant broad super_admin access to hotels/menu_items/orders/reviews. Hotel-owner scoped policies and public customer insert/read policies must be designed before launching partner logins or public ordering.
