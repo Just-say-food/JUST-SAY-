@@ -35,7 +35,7 @@
     async function loadHotelsIntoLocalCache(client){
       const {data,error}=await client.from('hotels').select('*').order('created_at',{ascending:false});
       if(error){ if(status) status.textContent='Signed in, but hotel list could not load: '+error.message; return; }
-      const cached=(data||[]).map(h=>({id:h.id,name:h.name,slug:h.slug,description:h.description||'',address:h.address||'',phone:h.phone||'',whatsapp:h.whatsapp_number||'',status:h.is_active?'active':'draft',username:'',password:'',menu:[],rooms:[],hotelImages:[],roomImages:[]}));
+      const cached=(data||[]).map(h=>({id:h.id,name:h.name,slug:h.slug,description:h.description||'',address:h.address||'',phone:h.phone||'',whatsapp:h.whatsapp_number||'',status:h.is_active?'active':'draft',username:'Supabase Auth',password:'',menu:[],rooms:[],hotelImages:[],roomImages:[]}));
       localStorage.setItem('jsv2_hotels',JSON.stringify(cached));
       // Render current app from the shared records by refreshing after auth session is established.
       if (sessionStorage.getItem('js_supa_hotels_loaded') !== 'yes') { sessionStorage.setItem('js_supa_hotels_loaded','yes'); location.reload(); }
@@ -57,9 +57,11 @@
       if(!session){alert('Please sign in as Super Admin first.');return;}
       const {data:profile}=await db.from('profiles').select('role').eq('id',session.user.id).maybeSingle();
       if(!profile||profile.role!=='super_admin'){alert('Super Admin permission required.');return;}
-      const name=document.getElementById('hname').value.trim(), slug=document.getElementById('hslug').value.trim().toLowerCase(), wa=document.getElementById('hwa').value.trim().replace(/\D/g,'');
-      const payload={name,slug,description:document.getElementById('hdesc').value.trim(),address:document.getElementById('haddress').value.trim(),phone:document.getElementById('hphone').value.trim(),whatsapp_number:wa,is_active:document.getElementById('hstatus').value==='active',owner_id:null};
+      const name=document.getElementById('hname').value.trim(), slug=document.getElementById('hslug').value.trim().toLowerCase(), wa=document.getElementById('hwa').value.trim().replace(/\D/g,''), ownerEmail=document.getElementById('huser').value.trim().toLowerCase(), tempPassword=document.getElementById('hpass').value;
       const editId=document.getElementById('hid').value;
+      if(!editId && (!ownerEmail || tempPassword.length < 10)){alert('New hotel ke liye owner email aur kam se kam 10-character temporary password zaroori hai.');return;}
+      if(Boolean(ownerEmail)!==Boolean(tempPassword)){alert('Owner account banane ke liye email aur temporary password dono bharo. Existing hotel edit kar rahe ho aur account nahi banana, to dono blank chhodo.');return;}
+      const payload={name,slug,description:document.getElementById('hdesc').value.trim(),address:document.getElementById('haddress').value.trim(),phone:document.getElementById('hphone').value.trim(),whatsapp_number:wa,is_active:document.getElementById('hstatus').value==='active'};
       let result;
       if(editId && /^[0-9a-f-]{36}$/i.test(editId)) result=await db.from('hotels').update(payload).eq('id',editId).select().single();
       else result=await db.from('hotels').insert(payload).select().single();
@@ -68,7 +70,14 @@
       // Save menu items to shared table. Existing items for this hotel are replaced only after hotel save.
       const rows=[...document.querySelectorAll('#menu-fields .menu-row')].map(row=>({hotel_id:hotel.id,name:row.querySelector('.mn')?.value?.trim(),price:Number(row.querySelector('.mp')?.value||0),category:row.querySelector('.mc')?.value||'Other',description:row.querySelector('.md')?.value||'',is_available:true})).filter(x=>x.name&&Number.isFinite(x.price)&&x.price>=0);
       if(rows.length){ const del=await db.from('menu_items').delete().eq('hotel_id',hotel.id); if(del.error){alert('Hotel saved, but existing menu could not be updated: '+del.error.message);return;} const ins=await db.from('menu_items').insert(rows); if(ins.error){alert('Hotel saved, but menu save failed: '+ins.error.message);return;} }
-      alert('Hotel saved to the shared Supabase database.\n\nHotel: '+hotel.name+'\nPublic page: '+new URL('hotel.html?hotel='+encodeURIComponent(hotel.slug),location.href).href+'\n\nNote: owner login creation is not included yet; do not give the owner a demo username/password as a secure login.');
+      let ownerMessage='';
+      if(ownerEmail && tempPassword){
+        const provision=await db.functions.invoke('provision-hotel-owner',{body:{hotel_id:hotel.id,email:ownerEmail,password:tempPassword,full_name:ownerEmail.split('@')[0]}});
+        if(provision.error || provision.data?.error){alert('Hotel and menu saved, but owner account was NOT created.\n\n'+(provision.data?.error||provision.error?.message||'Unknown provisioning error')+'\n\nDeploy the included Supabase Edge Function and set its server secrets, then retry with the existing hotel.');return;}
+        ownerMessage='\nOwner login email: '+ownerEmail+'\nHotel login page: '+new URL('hotel-login.html',location.href).href+'\nTemporary password was sent to Supabase Auth and is not stored in the database. Ask the owner to change it after first sign-in.';
+        document.getElementById('hpass').value='';
+      }
+      alert('Hotel saved to the shared Supabase database.\n\nHotel: '+hotel.name+'\nPublic page: '+new URL('hotel.html?hotel='+encodeURIComponent(hotel.slug),location.href).href+ownerMessage);
       location.reload();
     };
     checkSession().catch(e=>{if(status)status.textContent='Supabase error: '+e.message;});

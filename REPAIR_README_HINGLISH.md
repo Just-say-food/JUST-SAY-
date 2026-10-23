@@ -83,3 +83,6 @@ Do not store a plain-text password or hotel login password in the `hotels` table
 - This build fixes the public hotel profile lookup and replaces the demo hotel-login handler, but it is not a complete production backend rewrite. Other features in the old app (directory, reviews, orders, booking leads, and some admin displays) may still use `localStorage`.
 - Admin hotel creation currently writes the hotel/menu rows to Supabase, but it does not securely create an Auth user for a hotel owner. That requires a trusted backend/Edge Function or a controlled manual provisioning workflow.
 - I cannot verify private database data or prove the live deployment works without the project's actual schema and runtime results. Run the checklist and share any exact error for the next repair pass.
+
+
+Updated repair build notes: see `REPAIR_DEPLOY_GUIDE_HINGLISH.md` for customer Supabase Auth, server-side hotel owner provisioning, required publishable-key setup, and exact deployment steps. This ZIP does not include any service-role secret.

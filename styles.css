@@ -14,3 +14,24 @@
 
 /* JUST SAY professional upgrade UI */
 .city-strip{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:12px 0 20px}.city-strip select{max-width:240px}.pill{display:inline-flex;padding:5px 10px;border-radius:999px;background:#eef5dc;color:#304000;font-size:12px;font-weight:800}.two-col{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}.subpanel{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:18px;margin:14px 0}.subpanel h3{margin-top:0}.field input[type=file]{padding:9px;background:#f8fafc}.warning-box{border:1px solid #f0c36d;background:#fff8e7;border-radius:12px;padding:14px;color:#6e4b00}.success-box{border:1px solid #b8d9a4;background:#f3faed;border-radius:12px;padding:14px;color:#284b16}.table-wrap{overflow:auto}table.data-table{width:100%;border-collapse:collapse;min-width:650px}table.data-table th,table.data-table td{padding:10px;border-bottom:1px solid #e5e7eb;text-align:left;font-size:14px}table.data-table th{background:#f6f8f1}button.danger{background:#8e2424;color:white}.nav-cta{font-weight:800}.small-muted{font-size:12px;color:#667085}.inline-form{display:flex;gap:10px;flex-wrap:wrap}.inline-form>*{flex:1;min-width:150px}@media print{header,nav,.no-print,button,footer{display:none!important}body{background:white}.panel,.subpanel{box-shadow:none;border:1px solid #ddd}}
+
+
+/* JUST SAY repair build: refined mobile-first public hotel experience */
+:root{--js-ink:#173b32;--js-green:#174b3d;--js-lime:#d9f99d;--js-paper:#f7f8f2;--js-border:#e2e8df}
+body{background:var(--js-paper);color:#182b25}
+header{position:sticky;top:0;z-index:20;backdrop-filter:blur(14px);background:rgba(255,255,255,.94);border-bottom:1px solid var(--js-border)}
+.brand{font-weight:850;letter-spacing:-.035em}.brand span{background:var(--js-green);color:white;border-radius:9px;padding:7px 8px;margin-right:8px}
+main{width:min(1160px,calc(100% - 28px));margin:24px auto 54px}
+.hero{border:1px solid #dce8d7;border-radius:26px;padding:clamp(26px,5vw,58px);background:radial-gradient(circle at 92% 10%,rgba(217,249,157,.5),transparent 34%),linear-gradient(135deg,#eef5e9,#fff 68%);box-shadow:0 12px 36px rgba(23,59,50,.055)}
+.hero h1{font-size:clamp(2.25rem,6vw,4.7rem);line-height:1.03;letter-spacing:-.055em;color:var(--js-ink);margin:.45em 0 .25em}
+.hero .tag{display:inline-flex;background:#e1efda;color:#245b42;border-radius:99px;padding:7px 11px;font-weight:750;letter-spacing:.08em;font-size:.72rem}
+.panel,.login-card{border:1px solid var(--js-border);border-radius:22px;background:#fff;box-shadow:0 8px 28px rgba(23,59,50,.035);padding:clamp(18px,3vw,30px)}
+.city-strip{display:flex;gap:12px;align-items:end;flex-wrap:wrap;border-radius:18px;background:#fff}
+.btn,button{border-radius:11px;font-weight:750;transition:transform .15s ease,box-shadow .15s ease}.btn:hover,button:hover{transform:translateY(-1px);box-shadow:0 5px 15px rgba(23,59,50,.12)}
+.btn:not(.secondary),button:not(.secondary){background:var(--js-green);color:#fff;border-color:var(--js-green)}
+.btn.secondary,button.secondary{background:#f1f5ee;border-color:#dce5d9;color:var(--js-ink)}
+.grid{gap:16px}.card{border:1px solid var(--js-border);border-radius:18px;box-shadow:0 6px 20px rgba(23,59,50,.035);padding:20px}.card h3{color:var(--js-ink)}
+.price{font-size:1.2rem;font-weight:850;color:var(--js-green);margin:10px 0}
+.field input,.field select,.field textarea{border:1px solid #d9e2d8;border-radius:10px;padding:12px 13px;background:#fff;min-height:44px}.field input:focus,.field select:focus,.field textarea:focus{outline:3px solid rgba(122,171,105,.2);border-color:#7aab69}
+.notice{border-radius:12px}.footer{color:#7a8981;padding:22px}
+@media(max-width:640px){header{align-items:flex-start;gap:12px;padding:12px 14px}header nav{gap:8px;flex-wrap:wrap;justify-content:flex-end}header nav a{font-size:.78rem}main{width:min(100% - 20px,1160px);margin:14px auto 36px}.hero{border-radius:20px;padding:26px 20px}.hero .actions{align-items:stretch}.hero .actions .btn{justify-content:center}.panel,.login-card{border-radius:17px;padding:18px}.city-strip{align-items:stretch}.city-strip .field,.city-strip .btn{width:100%}.card{padding:16px}}
