@@ -17,7 +17,9 @@
   if(pe||!profile||!['hotel_owner','hotel_manager'].includes(profile.role)||!profile.hotel_id){await db.auth.signOut();showError('This account is not linked to an authorized hotel profile. Ask JUST SAY Super Admin to set up your hotel-owner access.');return;}
   const {data:hotel,error:he}=await db.from('hotels').select('id,name,slug,address,phone,whatsapp_number,is_active').eq('id',profile.hotel_id).maybeSingle();
   if(he||!hotel){await db.auth.signOut();showError('Your hotel account is linked incorrectly or the hotel record could not be loaded. Contact JUST SAY support.');return;}
-  card.innerHTML=`<span class="tag">HOTEL PARTNER ACCESS</span><h1>Welcome, ${esc(profile.full_name||hotel.name)}</h1><p class="muted">Signed in securely. Hotel profile: <b>${esc(hotel.name)}</b></p><p>Status: ${hotel.is_active?'Published':'Draft / unpublished'}</p><p>Public link: <a href="hotel.html?hotel=${encodeURIComponent(hotel.slug)}">Open hotel profile</a></p><p class="small">This login validates your account and hotel association. Menu editing and order management must be implemented as protected Supabase-backed portal features before use.</p><button id="owner-logout" type="button">Sign out</button>`;
+  showStatus('Login successful · Opening hotel dashboard…');
+  window.location.href = 'hotel-dashboard.html';
+<h1>Welcome, ${esc(profile.full_name||hotel.name)}</h1><p class="muted">Signed in securely. Hotel profile: <b>${esc(hotel.name)}</b></p><p>Status: ${hotel.is_active?'Published':'Draft / unpublished'}</p><p>Public link: <a href="hotel.html?hotel=${encodeURIComponent(hotel.slug)}">Open hotel profile</a></p><p class="small">This login validates your account and hotel association. Menu editing and order management must be implemented as protected Supabase-backed portal features before use.</p><button id="owner-logout" type="button">Sign out</button>`;
   document.getElementById('owner-logout').onclick=async()=>{await db.auth.signOut();location.reload()};showStatus('Supabase connected · hotel owner signed in');
  };
  const {data:{session}}=await db.auth.getSession();
