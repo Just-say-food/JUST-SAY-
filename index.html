@@ -1,1 +1,258 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>JUST SAY</title><link rel="stylesheet" href="styles.css"></head><body><header><a class="brand" href="index.html"><span>JS</span>JUST SAY</a><nav><a href="index.html">Public site</a><a href="admin.html">Super Admin</a><a href="hotel-login.html">Hotel login</a><a href="customer-login.html">Customer account</a></nav></header><main><section class="hero"><span class="tag">DIRECT ORDERING · KANPUR</span><h1>Good food.<br><em>One simple scan.</em></h1><p class="muted">A central platform for hotels to publish menus and receive room-service orders directly.</p><div class="actions"><a class="btn" href="#hotels">Explore hotels ↓</a><a class="btn secondary" href="hotel-login.html">Hotel partner login</a></div></section><section class="panel" id="room-search"><h2>Find a room</h2><p class="muted">Search demo listings by location, dates, guests and budget. Availability is a prototype and must be confirmed by the hotel.</p><form id="room-search-form" class="form-grid"><label class="field">City / area<input name="area" placeholder="Kanpur"></label><label class="field">Check-in<input name="checkin" type="date" required></label><label class="field">Check-out<input name="checkout" type="date" required></label><label class="field">Guests<select name="guests"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select></label><label class="field">Max price per night (₹)<input name="budget" type="number" min="0" placeholder="Any budget"></label><button type="submit">Search available options</button></form><div id="room-results" class="grid"></div></section><section id="hotels"><h2>Our hotel partners</h2><p class="muted">Each hotel has its own menu and ordering link.</p><div id="public-hotels" class="grid"></div></section><section class="panel" id="ai-helpdesk"><h2>JUST SAY AI Helpdesk <span class="tag">Prototype</span></h2><p class="muted">Ask about hotels, room prices, menus, food items, or how to check a booking. Do not enter passwords or payment credentials.</p><div id="chat-log" class="notice" style="min-height:72px">Hi! I can help you search demo hotel listings, find popular foods, or explain how to check a booking.</div><form id="chat-form" class="actions" style="margin-top:10px"><input id="chat-input" placeholder="e.g. Find rooms in Kanpur under ₹2000" required style="flex:1;min-width:180px"><button type="submit">Ask</button></form></section><div id="supabase-connection-status" class="notice" style="margin:12px auto;max-width:1100px">Checking Supabase setup…</div></main><footer class="footer">JUST SAY · Order Direct. Enjoy More.</footer><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="supabase-config.js"></script><script src="supabase-init.js"></script><script src="app.js"></script><script src="professional-features.js"></script></body></html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JUST SAY | Order Simply</title>
+  <meta name="description" content="Discover hotels, explore menus and order directly with JUST SAY.">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f8fa;
+      color: #17211b;
+    }
+
+    header {
+      background: #123c2b;
+      color: white;
+      padding: 20px 7%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .logo {
+      font-size: 27px;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    .logo span {
+      color: #f5bf53;
+    }
+
+    .header-label {
+      font-size: 13px;
+      color: #e0eee5;
+    }
+
+    .hero {
+      padding: 65px 7% 55px;
+      background: #e9f2e9;
+    }
+
+    .tag {
+      color: #26704a;
+      font-weight: bold;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    h1 {
+      font-size: clamp(35px, 6vw, 58px);
+      line-height: 1.1;
+      max-width: 700px;
+      margin: 18px 0;
+    }
+
+    .hero p {
+      color: #59665d;
+      max-width: 560px;
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    .search-box {
+      display: flex;
+      gap: 10px;
+      max-width: 600px;
+      margin-top: 27px;
+      flex-wrap: wrap;
+    }
+
+    input {
+      flex: 1;
+      min-width: 200px;
+      padding: 15px;
+      border: 1px solid #d6ded7;
+      border-radius: 8px;
+      font-size: 15px;
+    }
+
+    button {
+      background: #176b43;
+      color: white;
+      border: none;
+      padding: 15px 22px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background: #105434;
+    }
+
+    main {
+      padding: 38px 7% 65px;
+    }
+
+    .section-title {
+      font-size: 27px;
+      margin-bottom: 8px;
+    }
+
+    .section-subtitle {
+      color: #69746d;
+      margin-bottom: 25px;
+      line-height: 1.6;
+    }
+
+    .hotel-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 20px;
+    }
+
+    .hotel-card {
+      background: white;
+      border: 1px solid #e6eae6;
+      border-radius: 13px;
+      padding: 23px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.035);
+    }
+
+    .hotel-icon {
+      font-size: 35px;
+      margin-bottom: 16px;
+    }
+
+    .hotel-card h3 {
+      font-size: 19px;
+      margin-bottom: 10px;
+    }
+
+    .hotel-card p {
+      color: #68736b;
+      line-height: 1.6;
+      font-size: 14px;
+      margin-bottom: 18px;
+    }
+
+    .status {
+      display: inline-block;
+      font-size: 12px;
+      background: #fff2d9;
+      color: #835b14;
+      padding: 6px 9px;
+      border-radius: 5px;
+      margin-bottom: 14px;
+    }
+
+    .empty {
+      background: white;
+      border: 1px dashed #cbd6cd;
+      padding: 25px;
+      border-radius: 12px;
+      color: #59665d;
+      line-height: 1.7;
+      grid-column: 1 / -1;
+    }
+
+    footer {
+      background: #123c2b;
+      color: #e0eee5;
+      padding: 25px 7%;
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    @media (max-width: 600px) {
+      header {
+        padding: 18px 5%;
+      }
+
+      .hero, main {
+        padding-left: 5%;
+        padding-right: 5%;
+      }
+
+      .search-box button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">JUST <span>SAY.</span></div>
+    <div class="header-label">Discover · Connect · Order</div>
+  </header>
+
+  <section class="hero">
+    <div class="tag">Welcome to JUST SAY</div>
+    <h1>Your stay. Your food.<br>Your choice.</h1>
+    <p>
+      Discover hotels, explore their facilities and menus,
+      and connect directly with them for your next order.
+    </p>
+
+    <form class="search-box" id="searchForm">
+      <input
+        id="searchInput"
+        type="search"
+        placeholder="Search hotels by name or location..."
+        aria-label="Search hotels"
+      >
+      <button type="submit">Search Hotels</button>
+    </form>
+  </section>
+
+  <main>
+    <h2 class="section-title">Explore Hotels</h2>
+    <p class="section-subtitle">
+      Find a hotel and discover what it offers.
+    </p>
+
+    <div class="hotel-grid" id="hotelGrid">
+      <div class="empty">
+        <strong>Your hotel directory starts here.</strong><br>
+        Hotel listings will appear here when the database
+        is connected and hotels have been added.
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <strong>JUST SAY</strong><br>
+    A simpler way to connect with hospitality businesses.<br>
+    © 2026 JUST SAY. All rights reserved.
+  </footer>
+
+  <script>
+    document.getElementById("searchForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const query = document.getElementById("searchInput").value.trim();
+
+      if (!query) {
+        alert("Please enter a hotel name or location.");
+        return;
+      }
+
+      alert("Hotel search will work when the hotel database is connected.");
+    });
+  </script>
+</body>
+</html>
