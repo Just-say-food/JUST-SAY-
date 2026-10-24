@@ -1,1 +1,61 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>JUST SAY</title><link rel="stylesheet" href="styles.css"></head><body><header><a class="brand" href="index.html"><span>JS</span>JUST SAY</a><nav><a href="index.html">Public site</a><a href="admin.html">Super Admin</a><a href="hotel-login.html">Hotel login</a><a href="hotel-records.html">Room & guest records</a></nav></header><main><div id="partner-content"><section class="panel"><h2>Checking your login…</h2></section></div><div id="supabase-connection-status" class="notice" style="margin:12px auto;max-width:1100px">Checking Supabase setup…</div></main><footer class="footer">JUST SAY Hotel Partner Dashboard</footer><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="supabase-config.js"></script><script src="supabase-init.js"></script><script src="app.js"></script><script src="professional-features.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hotel Dashboard · JUST SAY</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <a class="brand" href="index.html"><span>JS</span>JUST SAY</a>
+    <nav>
+      <a href="index.html">Public site</a>
+      <a href="hotel-dashboard.html">Hotel dashboard</a>
+      <a href="hotel-login.html">Hotel login</a>
+    </nav>
+  </header>
+  <main>
+    <section class="panel">
+      <span class="tag">HOTEL PARTNER PORTAL</span>
+      <h1 id="welcome-title">Hotel Dashboard</h1>
+      <p id="hotel-subtitle" class="muted">Checking your secure hotel session…</p>
+      <div id="dashboard-status" class="notice" role="status">Connecting to Supabase…</div>
+    </section>
+    <section id="dashboard-content" class="hidden">
+      <section class="grid">
+        <article class="panel">
+          <h2>Room Management</h2>
+          <p class="muted">Add rooms, set nightly prices, and update availability or maintenance status.</p>
+          <a class="btn" href="hotel-rooms.html">Open Room Management →</a>
+        </article>
+        <article class="panel">
+          <h2>Guest Register</h2>
+          <p class="muted">Record guest names, room allocation, guest count, check-in/check-out, booking source and payment status.</p>
+          <a class="btn" href="hotel-guest-register.html">Open Guest Register →</a>
+        </article>
+        <article class="panel">
+          <h2>Public hotel profile</h2>
+          <p class="muted">Open the public listing customers can view.</p>
+          <a id="public-hotel-link" class="btn secondary" href="index.html">View public profile →</a>
+        </article>
+      </section>
+      <section class="panel">
+        <h2>Next features</h2>
+        <p class="muted">Food & Orders and earning reports will be added in later steps. Room Management and Guest Register are the active modules.</p>
+        <button id="dashboard-logout" type="button" class="secondary">Sign out</button>
+      </section>
+    </section>
+    <section id="dashboard-login-prompt" class="panel hidden">
+      <h2>Please sign in</h2>
+      <p class="muted">Sign in with the hotel-owner account created by JUST SAY Super Admin.</p>
+      <a class="btn" href="hotel-login.html">Go to Hotel Login →</a>
+    </section>
+  </main>
+  <footer class="footer">JUST SAY Hotel Partner Dashboard</footer>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+  <script src="supabase-init.js"></script>
+  <script src="hotel-dashboard-auth.js"></script>
+</body>
+</html>
